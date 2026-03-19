@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/*estilos nav*/
+body{
+    background-color: rgba(7, 7, 53, 0.908);
+}
+:root {
+    --spartan-red: #5bb4fcec;
+    --spartan-black: #1a1a1a;
+    --spartan-white: #ffffff;
+    --nav-height: 70px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--spartan-black);
+    padding: 0 5%;
+    height: var(--nav-height);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'Arial', sans-serif; 
+}
+
+
+.nav-logo img {
+    height: 50px; 
+    transition: transform 0.3s ease;
+}
+
+.nav-logo img:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: var(--spartan-white);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    padding: 10px 0;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links li a:hover {
+    color: var(--spartan-red);
+    border-bottom: 2px solid var(--spartan-red);
+}
+
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 20px;
+    }
+    
+    .nav-links {
+        gap: 15px;
+    }
+
+    .nav-links li a {
+        font-size: 12px;
+    }
+
+    .nav-logo img {
+        height: 40px;
+    }
+}
+main{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+}
+.bienvenida{
+    color: white;
+padding: 40px;        
+text-align: center;
+width:  1000px;
+height: 160px;
+margin-top: 100px;
+    background-color: rgba(49, 53, 58, 0.409);
+    border-radius: 10px;
+
+}
+
+:root {
+    --bg: #0b0f1a;
+    --card: #161e2d;
+    --accent: #00d2ff;
+    --accent-alt: #3a7bd5;
+    --text: #ffffff;
+    --text-dim: #94a3b8;
+    --border: rgba(255, 255, 255, 0.05);
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+.main-wrapper {
+    max-width: 900px; /* Ancho contenido para que no se pierda en pantallas ultra anchas */
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Estilo Base de las Tarjetas Apiladas */
+.full-stack-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 30px; /* Espacio para el scroll hacia abajo */
+    transition: transform 0.3s ease;
+}
+
+.full-stack-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+/* Bloque Hero */
+.hero {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    text-align: center;
+}
+
+.main-progress-bar {
+    background: #334155;
+    height: 12px;
+    border-radius: 10px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+    height: 100%;
+}
+
+/* Bloque de Clase */
+.card-tag {
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.btn-main {
+    display: inline-block;
+    background: var(--accent);
+    color: #000;
+    padding: 12px 30px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Herramientas */
+.tools-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.btn-outline {
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    padding: 10px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Foro */
+.forum-list { margin: 20px 0; }
+.forum-item {
+    background: rgba(255,255,255,0.03);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.btn-ghost {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.simple-footer {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+}
