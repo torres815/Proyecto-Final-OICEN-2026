@@ -1,0 +1,55 @@
+/* style-structured.css */
+
+:root {
+    --azul-marino-oscuro: #303854;
+    --azul-marino-medio: #c2cdd5;
+    --azul-claro: #f6f3ea;
+    --texto-oscuro: #333333;
+    --texto-gris: #666666;
+    --texto-institucional: #e0f2f1; /* Para texto en fondo oscuro */
+    --blanco: #ffffff;
+    --borde: #e0e0e0;
+}
+body{
+    background-color: var(--azul-claro);
+    display: flex;
+}
+.formulario{
+    background-color: var(--azul-marino-medio);
+    width: 30%;
+    margin-top: 10%;
+    margin-left: 0%;
+    
+    text-align: center;
+}
+.form-encabezado{
+  color: var(--azul-marino-oscuro);
+  text-align: center;
+}
+.entrada label{
+    color: var(--azul-marino-oscuro);
+    display: block;
+    text-align: center;
+    margin: 2%;
+
+}
+.entrada input{
+    display: block;
+    text-align: center;
+    margin-right: 15%;
+    margin: 2%;
+
+}
+.logo-oicen{
+    width: 60px;
+    height: 60px;
+    
+
+}
+.contenedor_1{
+    background-color: var(--azul-marino-oscuro);
+    width: 30%;
+    margin-top: 10%;
+    margin-right: 0%;
+    margin-left: 20%;
+}
