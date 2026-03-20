@@ -9,6 +9,7 @@
 <body>
     <div class="contenedor_1">
         <img class="logo-oicen" src="templates/logo-oicen.png" alt="Logo Oicen">
+        <h3>Bienvenido!!</h3>
     </div>
     
       <div class="formulario">
@@ -21,15 +22,15 @@
                         <label for="username">Usuario </label>
                         <input type="text" id="username" placeholder="ejemplo@gmail.com" required>
                     </div>
+                  
                     <div class="entrada">
                         <label for="password">Contraseña</label>
-                        <input type="password" id="password" placeholder="••••••••" required>
+                        <input  type="password" id="password" placeholder="••••••••" required>
                     </div>
-                    <div class="form-options">
-                    </div>
-                    <a href="index.php">
-                    <button>Entrar al Sistema</button>
+                    <a  href="index.php">
+                    <button type="submit" class="boton">Entrar al Sistema</button>
                     </a>
                 </form>
+        </div>
 </body>
 </html>
