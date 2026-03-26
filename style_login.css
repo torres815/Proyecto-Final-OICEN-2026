@@ -81,11 +81,13 @@ form{
     color: var(--azul-claro);
     border-radius: 5px;
     border: none;
-    
+    transition: all 0.3s ease;
 
 }
-.boton :hover{
-
+.boton:hover{
+background-color: #173b84; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .logo-oicen{
     width: 60px;
