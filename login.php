@@ -9,13 +9,12 @@
 <body>
     <div class="contenedor_1">
         <img class="logo-oicen" src="templates/logo-oicen.png" alt="Logo Oicen">
-        <h3>Bienvenido!!</h3>
+        <h3>Bienvenido</h3>
     </div>
     
       <div class="formulario">
                 <div class="form-encabezado">
                     <h2>Iniciar Sesión</h2>
-                    <p>Ingresa tus credenciales.</p>
                 </div>
                 <form>
                     <div class="entrada">
@@ -28,7 +27,7 @@
                         <input  type="password" id="password" placeholder="••••••••" required>
                     </div>
                     <a  href="index.php">
-                    <button type="submit" class="boton">Entrar al Sistema</button>
+                    <button type="submit" class="boton">Acceder</button>
                     </a>
                 </form>
         </div>
