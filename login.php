@@ -3,10 +3,10 @@ include 'db/conexion.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $usuario = $_POST ['usuario'];
+    $email = $_POST ['email'];
     $contrasena = $_POST ['contrasena'];
 
-    $consulta = "SELECT * FROM usuario WHERE usuario = 'usuario'";
+    $consulta = "SELECT * FROM usuario WHERE email = 'email'";
     $resultado = mysqli_query ($conexion, $consulta);
 
     if (mysqli_num_rows($resultado) > 0) {
