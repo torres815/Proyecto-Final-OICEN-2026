@@ -1,3 +1,29 @@
+<?php
+include 'db/conexion.php';
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    $usuario = $_POST ['usuario'];
+    $contrasena = $_POST ['contrasena'];
+
+    $consulta = "SELECT * FROM usuario WHERE usuario = 'usuario'";
+    $resultado = mysqli_query ($conexion, $consulta);
+
+    if (mysqli_num_rows($resultado) > 0) {
+    $fila = mysqli_fetch_assoc($resultado);
+
+    if ($password === $fila['contrasena']) {
+            $_SESSION['usuario_nombre'] = $fila['nombre']; 
+            header("Location: index.php"); 
+        } else {
+            echo "La contraseña es incorrecta.";
+        }
+    } else {
+        echo "El usuario no existe.";
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +34,7 @@
 </head>
 <body>
     <div class="contenedor_1">
-        <img class="logo-oicen" src="templates/logo-oicen.png" alt="Logo Oicen">
+        <img class="logo-oicen" src="img/logo-oicen.png" alt="Logo Oicen">
         <h3>Bienvenido</h3>
     </div>
     

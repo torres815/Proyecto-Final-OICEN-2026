@@ -16,7 +16,7 @@
 }
 body{
     display: flex;
-    background-image: url('templates/logo3.png');
+    background-image: url('img/logo3.png');
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
   background-size: cover;     
