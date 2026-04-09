@@ -9,7 +9,7 @@ $usuario = "Elias";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OICEN - Campus Virtual</title>
+    <title>OICEN - niveles</title>
 
     <style>
         * {
@@ -259,179 +259,6 @@ $usuario = "Elias";
             }
         }
 
-        /* contenido principal */
-        .main-content {
-            padding: 90px;
-        }
-
-        .hero-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-
-        }
-
-        .welcome-text {
-            flex: 1;
-            margin-bottom: 60px;
-            padding-right: 40px;
-        }
-
-        .welcome-text h1 {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            color: #ffffff;
-        }
-
-        .welcome-text p {
-            color: #929090;
-        }
-
-        .right-side {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .user-stats {
-            background: #a9ceec46;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #088ae0;
-        }
-
-        .progress-bar-container {
-            background: #dddddd4f;
-            border-radius: 20px;
-            height: 20px;
-            width: 100%;
-            margin: 10px 0;
-        }
-
-        .progress-fill {
-            background: #016ab1;
-            height: 100%;
-            border-radius: 20px;
-            transition: width 0.5s;
-        }
-
-        .bottom-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        @keyframes rotarBrillo {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .nav-card {
-            flex: 1;
-            padding: 40px 20px;
-            text-align: center;
-            background: linear-gradient(135deg, #001f3f 0%, #00294d 25%, #002635 100%);
-            backdrop-filter: blur(5px);
-            border-radius: 15px;
-            text-decoration: none;
-            color: #ffffff;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            overflow: hidden;
-            position: relative;
-            border: 2px solid transparent;
-
-            /* Agregamos un resplandor exterior suave constante */
-            box-shadow: 0 0 15px rgba(0, 116, 217, 0.2);
-        }
-
-        .nav-card::before {
-            content: '';
-            position: absolute;
-            width: 220%;
-            /* Un poco más grande para asegurar cobertura */
-            height: 220%;
-            top: -60%;
-            left: -60%;
-
-            /* Brillo constante pero suave antes del hover */
-            background-image: conic-gradient(transparent,
-                    transparent,
-                    rgba(255, 255, 255, 0.8),
-                    /* Brillo blanco intenso */
-                    #00d4ff,
-                    /* Azul eléctrico para que sea llamativo */
-                    transparent,
-                    transparent);
-
-            animation: rotarBrillo 5s linear infinite;
-
-            /* ESTADO INICIAL: Ahora es visible (0.3) para que no esté apagado */
-            opacity: 0.3;
-            transition: opacity 0.5s ease;
-            z-index: 1;
-        }
-
-        .nav-card::after {
-            content: '';
-            position: absolute;
-            inset: 2px;
-            background: inherit;
-            border-radius: 13px;
-            z-index: 2;
-        }
-
-        /* Contenido siempre visible */
-        .nav-card h2,
-        .nav-card p {
-            position: relative;
-            z-index: 3;
-            /* Un pequeño sombreado al texto para que resalte más */
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        /* --- ESTADOS --- */
-
-        .nav-card:hover:not(.locked) {
-            transform: translateY(-10px) scale(1.02);
-            /* Un pequeño aumento de tamaño */
-            background: linear-gradient(225deg, #001830 0%, #002447 25%, #005374 100%);
-
-            /* Glow exterior mucho más potente en Hover */
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6), 0 15px 30px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Al pasar el mouse, el brillo perimetral se enciende al máximo */
-        .nav-card:hover:not(.locked)::before {
-            opacity: 1;
-            animation-duration: 2s;
-            /* El brillo gira más rápido al interactuar */
-        }
-
-        /* El parche central debe actualizarse también en hover */
-        .nav-card:hover:not(.locked)::after {
-            background: linear-gradient(225deg, #001830 0%, #002447 25%, #005374 100%);
-        }
-
-        .nav-card.locked {
-            background: linear-gradient(135deg, #0a1128 0%, #1c2a4a 100%);
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        /* Quitamos el brillo animado de las tarjetas bloqueadas */
-        .nav-card.locked::before {
-            display: none;
-        }
     </style>
 </head>
 
@@ -452,7 +279,7 @@ $usuario = "Elias";
 
         <div class="nav-menu">
             <div class="nav-links-container">
-                <a href="#" class="nav-item">
+                <a href="index.php" class="nav-item">
                     <span class="icon-bg green">{}</span> INICIO
                 </a>
                 <a href="chatbot.php" class="nav-item">
