@@ -290,194 +290,182 @@ $usuario = "Elias";
             }
         }
 
-        /* cuerpo niveles */
-        /* Contenedor del Mapa */
-        /* --- Contenedor de la Ruta --- */
-        .level-map-container {
-            max-width: 1000px;
-            margin: 80px auto;
-            padding: 0 40px;
+        /* cuerpo del perfil */
+        /* Layout del Perfil */
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* Tarjeta de Usuario */
+        .user-card,
+        .tasks-container,
+        .calendar-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .user-info {
             display: flex;
-            flex-direction: column;
             align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
         }
 
-        /* --- Badge de Lección (Estilo dibujo) --- */
-        .lesson-header-badge {
-            background: rgba(167, 139, 250, 0.05);
-            border: 2px solid #a78bfa;
-            border-radius: 20px;
-            padding: 25px 50px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(167, 139, 250, 0.2);
-            margin-bottom: 80px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .lesson-title-main {
-            font-size: 2.5rem;
-            color: #ffffff;
-            margin: 0;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        }
-
-        /* --- El Camino (Path) --- */
-        .path-container {
+        .profile-pic {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 12px;
             display: flex;
-            flex-direction: column;
-            gap: 80px;
-            /* Separación vertical exacta entre niveles */
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .dotted-path {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 100%;
-            background-image: linear-gradient(to bottom, var(--accent) 50%, transparent 50%);
-            background-size: 2px 25px;
-            opacity: 0.25;
-            z-index: 1;
-        }
-
-        /* --- Nodos de Nivel --- */
-        .level-node {
-            width: 85px;
-            height: 85px;
-            background: #0d1117;
-            /* Fondo oscuro sólido para resaltar */
-            border: 2px solid var(--border-color);
-            border-radius: 22px;
-            display: flex;
+            align-items: center;
             justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.4);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-item span {
+            font-size: 12px;
+            color: var(--text-dim);
+            display: block;
+        }
+
+        .stat-item strong {
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        /* Lista de Tareas */
+        .tasks-container {
+            margin-top: 25px;
+        }
+
+        .tasks-container h3 {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .task-item {
+            display: flex;
             align-items: center;
-            font-size: 2rem;
-            font-weight: 800;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .task-info {
+            flex: 1;
+        }
+
+        .task-info span {
+            display: block;
+            font-size: 14px;
+        }
+
+        .task-info small {
+            color: var(--text-dim);
+            font-size: 11px;
+        }
+
+        .task-time {
+            font-family: monospace;
+            color: var(--accent);
+            font-size: 13px;
+        }
+
+        /* Calendario Estilo GitHub */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .year-label {
+            color: var(--accent);
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .weekdays-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 8px;
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .cal-day {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
             color: var(--text-dim);
             transition: all 0.3s ease;
-            z-index: 5;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
-        /* --- Lógica de Posicionamiento --- */
-        .align-center-path {
-            align-self: center;
-        }
-
-        .align-side-left {
-            align-self: flex-start;
-            margin-left: 5%;
-        }
-
-        .align-side-right {
-            align-self: flex-end;
-            margin-right: 5%;
-        }
-
-        /* --- Estados Dinámicos --- */
-
-        /* Completado (Verde Ratatype) */
-        .level-node.completed {
-            border-color: #4ade80;
-            color: #4ade80;
-            background: rgba(74, 222, 128, 0.02);
-        }
-
-        /* Actual (Brillo Azul Neón) */
-        .level-node.current {
+        /* Día actual resaltado */
+        .cal-day.today {
+            border: 1px solid var(--accent);
             color: #fff;
+            box-shadow: 0 0 10px rgba(88, 166, 255, 0.2);
+        }
+
+        /* Niveles de intensidad (Azul neón) */
+        .lvl-1 {
+            background: rgba(88, 166, 255, 0.15);
+            color: #fff;
+        }
+
+        .lvl-2 {
+            background: rgba(88, 166, 255, 0.4);
+            color: #fff;
+        }
+
+        .lvl-3 {
+            background: var(--accent);
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* Días vacíos del mes anterior */
+        .empty-day {
             border: none;
-            overflow: hidden;
+            background: transparent;
         }
-
-        .level-node.current::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, var(--accent), transparent);
-            animation: rotarBrillo 3s linear infinite;
-        }
-
-        .level-node.current::after {
-            content: attr(data-level);
-            position: absolute;
-            inset: 3px;
-            background: #0d1117;
-            border-radius: 19px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 3;
-        }
-
-        /* Bloqueado */
-        .level-node.locked {
-            opacity: 0.4;
-            cursor: not-allowed;
-            filter: grayscale(1);
-        }
-
-        /* Meta Final */
-        .meta-icon {
-            font-size: 1.8rem;
-            filter: drop-shadow(0 0 5px white);
-        }
-
-        /* Interacción */
-        .level-node:hover:not(.locked) {
-            transform: translateY(-10px) scale(1.1);
-            border-color: #fff;
-            color: #fff;
-            box-shadow: 0 15px 40px rgba(88, 166, 255, 0.2);
-        }
-
-
-
-        /* --- Contenedor Acordeón --- */
-.accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
-}
-
-.accordion-content.active {
-    max-height: 2000px; /* Suficiente para los 10 niveles */
-    transition: max-height 1s ease-in-out;
-}
-
-.lesson-header-badge {
-    cursor: pointer;
-    transition: transform 0.2s;
-    user-select: none;
-}
-
-.lesson-header-badge:active { transform: scale(0.98); }
-
-/* --- Ajuste de Separación Vertical --- */
-.path-container {
-    display: flex;
-    flex-direction: column;
-    gap: 40px; /* Reducido de 80px a 40px como pediste */
-    padding: 30px 0;
-}
-
-.unlock-info {
-    font-size: 12px;
-    color: var(--accent);
-    margin-top: 10px;
-    display: block;
-    font-family: monospace;
-}
-
-/* El resto del CSS de .level-node se mantiene igual al anterior */
     </style>
 </head>
 
@@ -503,9 +491,6 @@ $usuario = "Elias";
                 </a>
                 <a href="chatbot.php" class="nav-item">
                     <span class="icon-bg orange">≡</span> CHAT BOT
-                </a>
-                <a href="perfil.php" class="nav-item">
-                    <span class="icon-bg purple">▢</span> PERFIL
                 </a>
             </div>
 

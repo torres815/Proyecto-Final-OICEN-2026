@@ -12,6 +12,29 @@ $usuario = "Elias";
     <title>OICEN - Campus Virtual</title>
 
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Personaliza la barra de scroll para que combine con tu tema oscuro */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+            /* Se ilumina con tu color azul al pasar el mouse */
+        }
+
         * {
             padding: 0%;
             margin: 0%;
@@ -33,8 +56,9 @@ $usuario = "Elias";
             color: #fff;
             font-family: 'Inter', system-ui, sans-serif;
             margin: 0;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
         }
@@ -73,9 +97,16 @@ $usuario = "Elias";
             align-items: center;
             background: var(--dark);
             padding: 10px 90px;
-            border-bottom: 1px solid var(--border-color);
+            /* Cambia var(--dark) por un color con transparencia si quieres ver el efecto de cristal */
+            background: rgba(11, 15, 26, 0.8);
             backdrop-filter: blur(10px);
-            z-index: 10;
+            -webkit-backdrop-filter: blur(10px);
+            position: sticky;
+            /* Hace que el elemento sea pegajoso */
+            top: 0;
+            /* Define dónde debe pegarse (al borde superior) */
+            z-index: 1000;
+            /* Asegura que pase POR ENCIMA de las tarjetas y el calendario */
         }
 
         .nav-brand {
@@ -85,9 +116,9 @@ $usuario = "Elias";
         }
 
         .brand-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -259,17 +290,22 @@ $usuario = "Elias";
             }
         }
 
-        /* contenido principal */
+        /* IMPORTANTE: Si el .main-content tiene height: 100%, quítalo */
         .main-content {
             padding: 90px;
+            flex: 1;
+            /* Esto hace que el contenido empuje hacia abajo */
         }
 
+        /* Si usas un contenedor para el Hero que tiene height: 100vh, cámbialo a min-height */
         .hero-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 40px;
-
+            min-height: 80vh;
+            /* Permite que el contenido respire */
+            margin-bottom: 50px;
         }
 
         .welcome-text {
@@ -452,13 +488,13 @@ $usuario = "Elias";
 
         <div class="nav-menu">
             <div class="nav-links-container">
-                <a href="#" class="nav-item">
+                <a href="index.php" class="nav-item">
                     <span class="icon-bg green">{}</span> INICIO
                 </a>
                 <a href="chatbot.php" class="nav-item">
                     <span class="icon-bg orange">≡</span> CHAT BOT
                 </a>
-                <a href="#" class="nav-item">
+                <a href="perfil.php" class="nav-item">
                     <span class="icon-bg purple">▢</span> PERFIL
                 </a>
             </div>

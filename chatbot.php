@@ -54,3 +54,5 @@ int main() {
         </section>
     </div>
 </main>
+
+<?php include 'template_chatbot/piechat.php'?>

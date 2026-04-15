@@ -12,6 +12,29 @@ $usuario = "Elias";
     <title>OICEN - chatbot</title>
 
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Personaliza la barra de scroll para que combine con tu tema oscuro */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+            /* Se ilumina con tu color azul al pasar el mouse */
+        }
+
         * {
             padding: 0%;
             margin: 0%;
@@ -33,8 +56,9 @@ $usuario = "Elias";
             color: #fff;
             font-family: 'Inter', system-ui, sans-serif;
             margin: 0;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
         }
@@ -73,9 +97,16 @@ $usuario = "Elias";
             align-items: center;
             background: var(--dark);
             padding: 10px 90px;
-            border-bottom: 1px solid var(--border-color);
+            /* Cambia var(--dark) por un color con transparencia si quieres ver el efecto de cristal */
+            background: rgba(11, 15, 26, 0.8);
             backdrop-filter: blur(10px);
-            z-index: 10;
+            -webkit-backdrop-filter: blur(10px);
+            position: sticky;
+            /* Hace que el elemento sea pegajoso */
+            top: 0;
+            /* Define dónde debe pegarse (al borde superior) */
+            z-index: 1000;
+            /* Asegura que pase POR ENCIMA de las tarjetas y el calendario */
         }
 
         .nav-brand {
@@ -85,9 +116,9 @@ $usuario = "Elias";
         }
 
         .brand-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -350,7 +381,7 @@ $usuario = "Elias";
                     <span class="icon-bg green">{}</span> INICIO
                 </a>
                 
-                <a href="#" class="nav-item">
+                <a href="perfil.php" class="nav-item">
                     <span class="icon-bg purple">▢</span> PERFIL
                 </a>
             </div>

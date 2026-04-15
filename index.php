@@ -16,7 +16,7 @@
         <div class="right-side">
             <?php 
                 // Simulación de datos (Esto vendría de tu base de datos)
-                $nombreEstudiante = "Elias"; 
+                $nombreEstudiante = "Elias";
                 $progreso = 10; // Porcentaje de 0 a 100
                 
                 $nivel = "Básico";
