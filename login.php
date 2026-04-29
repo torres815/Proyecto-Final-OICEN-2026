@@ -16,31 +16,44 @@ try {
     die("Error de conexión: " . $e->getMessage());
 }
 
+// Iniciar sesión SIEMPRE al principio
 session_start();
+
+// Si el usuario ya está logueado, mandarlo al index directamente
+if (isset($_SESSION['usuario_id'])) {
+    header("Location: index.php");
+    exit();
+}
 
 $mensaje = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
-    $contrasena_plana = $_POST['contrasena']; // La que viene del formulario
+    $contrasena_plana = $_POST['contrasena'];
 
-    // Sentencia Preparada
+    // Buscamos al usuario por email
     $stmt = $pdo->prepare("SELECT * FROM usuario WHERE email = ?");
     $stmt->execute([$email]);
     $usuario = $stmt->fetch();
 
     if ($usuario) {
-        // --- CAMBIO CLAVE AQUÍ ---
-        // Verificamos si la contraseña plana coincide con el HASH de la base de datos
+        // Verificamos el HASH de la contraseña
         if (password_verify($contrasena_plana, $usuario['contrasena'])) {
-            $_SESSION['usuario_nombre'] = $usuario['nombre']; 
+            
+            // --- AQUÍ ESTÁ LA COORDINACIÓN CLAVE ---
+            $_SESSION['usuario_id']     = $usuario['id'];      // Guardamos el ID numérico
+            $_SESSION['usuario_nombre'] = $usuario['nombre'];  // Guardamos el Nombre
+            $_SESSION['id_rol']         = $usuario['id_rol'];  // Guardamos el Rol (1, 2, etc.)
+            
+            // Redirigir al Dashboard
             header("Location: index.php");
             exit(); 
+            
         } else {
             $mensaje = "La contraseña es incorrecta.";
         }
     } else {
-        $mensaje = "Las credenciales son incorrectas.";
+        $mensaje = "El correo electrónico no está registrado.";
     }
 }
 ?>
@@ -63,14 +76,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="form-encabezado">
             <h2>Iniciar Sesión</h2>
             <?php if($mensaje): ?>
-                <p style="color: #ff4d4d; font-weight: bold;"><?php echo $mensaje; ?></p>
+                <p style="color: #ff4d4d; background: #ffe6e6; padding: 10px; border-radius: 5px; font-size: 0.9rem;">
+                    <?php echo $mensaje; ?>
+                </p>
             <?php endif; ?>
         </div>
 
         <form method="POST" action="">
             <div class="entrada">
-                <label for="email">Usuario</label>
-                <input type="email" name="email" id="email" placeholder="ejemplo@gmail.com" required>
+                <label for="email">Correo Electrónico</label>
+                <input type="email" name="email" id="email" placeholder="ejemplo@gmail.com" required 
+                       value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
             </div>
           
             <div class="entrada">

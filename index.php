@@ -1,11 +1,24 @@
 <?php 
-include 'template/cabeza.php';
-
-// Verificamos si la sesión está activa (opcional, pero recomendado)
-if (!isset($_SESSION['usuario_nombre'])) {
-    // Si no hay sesión, podrías redirigir al login
-    // header("Location: login.php");
+// 1. LÓGICA DE SESIÓN (DEBE IR AL INICIO)
+session_set_cookie_params(0);
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+
+// Si el usuario presiona el botón de logout, destruimos la sesión
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
+}
+
+// Bloqueo: Si no existe la sesión, redirige al login
+if (!isset($_SESSION['usuario_nombre'])) {
+    header("Location: login.php");
+    exit();
+}
+
+include 'template/cabeza.php';
 ?>
 
 <main class="main-content">
@@ -20,7 +33,7 @@ if (!isset($_SESSION['usuario_nombre'])) {
             </p>
             
             <div style="margin-top: 20px;">
-                <a href="logout.php" class="boton-logout" onclick="return confirmarCierre();">
+                <a href="?logout=true" class="boton-logout" onclick="return confirmarCierre();">
                     Cerrar Sesión
                 </a>
             </div>
@@ -28,8 +41,8 @@ if (!isset($_SESSION['usuario_nombre'])) {
 
         <div class="right-side">
             <?php 
-                // Usamos el nombre real de la sesión si existe
-                $nombreEstudiante = isset($_SESSION['usuario_nombre']) ? $_SESSION['usuario_nombre'] : "Invitado"; 
+                // Usamos el nombre real de la sesión que ahora viene de tu login modificado
+                $nombreEstudiante = $_SESSION['usuario_nombre']; 
                 $progreso = 10; 
                 
                 $nivel = "Básico";
@@ -86,20 +99,17 @@ if (!isset($_SESSION['usuario_nombre'])) {
 </main>
 
 <script>
-    // 1. Función para el botón de cerrar sesión
     function confirmarCierre() {
         return confirm("¿Estás seguro de que quieres cerrar sesión?");
     }
 
-    // 2. Detectar cuando el usuario intenta volver atrás
-    // Nota: El navegador bloquea mensajes personalizados, pero mostrará un cuadro de diálogo estándar.
     window.onload = function () {
         if (typeof history.pushState === "function") {
             history.pushState("jibberish", null, null);
             window.onpopstate = function () {
                 history.pushState('jibberish', null, null);
                 if(confirm("¿Quieres salir y cerrar sesión?")) {
-                    window.location.href = "logout.php";
+                    window.location.href = "?logout=true";
                 }
             };
         }
@@ -107,7 +117,6 @@ if (!isset($_SESSION['usuario_nombre'])) {
 </script>
 
 <style>
-    /* Estilo rápido para el botón de logout */
     .boton-logout {
         background-color: #ff4d4d;
         color: white;

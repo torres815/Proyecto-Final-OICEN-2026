@@ -1,6 +1,15 @@
 <?php
 // Datos mínimos para que no falle la impresión de variables
-$usuario = "Elias";
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$es_admin = (isset($_SESSION['id_rol']) && ($_SESSION['id_rol'] == 1 || $_SESSION['id_rol'] == 3));
+$usuario = isset($_SESSION['usuario_nombre']) ? $_SESSION['usuario_nombre'] : "Usuario";
+if (!isset($_SESSION['usuario_nombre'])) {
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -441,6 +450,7 @@ $usuario = "Elias";
 
     <nav class="navbar">
         <div class="nav-brand">
+             
             <div class="brand-icon">
                 <img src="imgs/logo-oicen.png" alt="Logo CEN" class="logo-img">
             </div>
@@ -455,10 +465,15 @@ $usuario = "Elias";
                 <a href="#" class="nav-item">
                     <span class="icon-bg green">{}</span> INICIO
                 </a>
+                <?php if ($es_admin): ?>
+                <a href="registro.php" class="nav-item">
+                    <span class="icon-bg orange" style="background-color: #38bdf8;">+</span> REGISTRO
+                </a>
+            <?php endif; ?>
                 <a href="chatbot.php" class="nav-item">
                     <span class="icon-bg orange">≡</span> CHAT BOT
                 </a>
-                <a href="#" class="nav-item">
+                <a href="perfil.php" class="nav-item">
                     <span class="icon-bg purple">▢</span> PERFIL
                 </a>
             </div>

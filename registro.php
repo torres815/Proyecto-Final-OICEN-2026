@@ -1,17 +1,29 @@
 <?php
 include 'db/conexion.php';
 
+// Iniciamos sesión para verificar permisos si es necesario
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['usuario_nombre'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $mensaje = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
     $email = $_POST['email'];
     $pass_plana = $_POST['contrasena'];
-    $id_rol = $_POST['id_rol']; 
+    
+    // Capturamos el rol del select. Si no viene, por defecto es 2 (Alumno)
+    $id_rol = isset($_POST['id_rol']) ? $_POST['id_rol'] : 2;
 
     $password_con_hash = password_hash($pass_plana, PASSWORD_DEFAULT);
 
     try {
+        // La consulta tiene 5 columnas y 5 valores (?) - Perfectamente emparejados ahora
         $sql = "INSERT INTO usuario (nombre, apellido, email, contrasena, id_rol) VALUES (?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
         
@@ -35,10 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - Oicen</title>
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-
+        *, *::before, *::after { box-sizing: border-box; }
         :root {
             --azul-marino-oscuro: #232b48;
             --azul-marino-medio: #c2cdd5;
@@ -59,15 +68,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-position: center;
             background-attachment: fixed;
             background-color: var(--azul-marino);
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .formulario {
             background-color: var(--azul-marino-medio);
-            /* Tamaño expandido */
             width: 500px; 
             max-width: 90%;
-            padding: 50px;
+            padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 30px var(--sombra);
             text-align: center;
@@ -76,90 +84,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .form-encabezado h2 {
             color: var(--azul-marino-oscuro);
-            font-size: 2rem;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .entrada {
+            font-size: 1.8rem;
             margin-bottom: 20px;
-            text-align: left;
+            text-transform: uppercase;
         }
 
+        .entrada { margin-bottom: 15px; text-align: left; }
         .entrada label {
             display: block;
             color: var(--azul-marino-oscuro);
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+            margin-bottom: 5px;
             font-weight: bold;
         }
 
-        .entrada input {
+        .entrada input, .entrada select {
             width: 100%;
-            padding: 15px; /* Más espacio interno */
+            padding: 12px;
             font-size: 1rem;
             border: 2px solid transparent;
             border-radius: 8px;
             outline: none;
-            transition: all 0.3s ease;
             background-color: var(--blanco);
         }
 
-        .entrada input:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .entrada input:focus {
+        .entrada input:focus, .entrada select:focus {
             border-color: var(--azul-marino-oscuro);
-            box-shadow: 0 0 15px rgba(35, 43, 72, 0.2);
         }
 
         .boton {
             width: 100%;
-            padding: 18px;
+            padding: 15px;
             background-color: var(--azul-marino-oscuro);
             color: var(--azul-claro);
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
+            margin-top: 10px;
+            transition: 0.3s;
         }
 
-        .boton:hover {
-            background-color: #1a2036;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-        }
+        .boton:hover { background-color: #1a2036; transform: translateY(-2px); }
 
-        .link-login {
-            display: inline-block;
-            margin-top: 25px;
-            color: var(--azul-marino-oscuro);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: bold;
-        }
-
-        .link-login:hover {
-            text-decoration: underline;
-            color: var(--azul-marino);
-        }
-
-        /* Mensajes de alerta */
-        .alerta {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-        .exito { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .alerta { padding: 10px; border-radius: 8px; margin-bottom: 15px; }
+        .exito { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
 
         @keyframes entradaContenedor {
             0% { opacity: 0; transform: scale(0.9); }
@@ -178,27 +148,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="POST" action="">
             <div class="entrada">
                 <label>Nombre</label>
-                <input type="text" name="nombre" placeholder="Escribe tu nombre" required>
+                <input type="text" name="nombre" placeholder="Tu nombre" required>
             </div>
             <div class="entrada">
                 <label>Apellido</label>
-                <input type="text" name="apellido" placeholder="Escribe tu apellido" required>
+                <input type="text" name="apellido" placeholder="Tu apellido" required>
             </div>
             <div class="entrada">
                 <label>Correo Electrónico</label>
                 <input type="email" name="email" placeholder="correo@ejemplo.com" required>
             </div>
+            
+            <div class="entrada">
+                <label>Tipo de Usuario</label>
+                <select name="id_rol" required>
+                    <option value="" disabled selected>Selecciona un rol</option>
+                    <option value="1">Administrador</option>
+                    <option value="2">Alumno</option>
+                    <option value="3">Docente</option>
+                </select>
+            </div>
+
             <div class="entrada">
                 <label>Contraseña</label>
                 <input type="password" name="contrasena" placeholder="Mínimo 8 caracteres" required>
             </div>
             
-            <input type="hidden" name="id_rol" value="3">
-
-            <button type="submit" class="boton">Crear mi cuenta</button>
+            <button type="submit" class="boton">Crear cuenta</button>
         </form>
 
-        <a href="login.php" class="link-login">¿Ya tienes una cuenta? Inicia sesión aquí</a>
+        <a href="index.php" style="display:block; margin-top:15px; color:var(--azul-marino-oscuro); text-decoration:none; font-size:0.9rem;">← Volver al Inicio</a>
     </div>
 
 </body>
