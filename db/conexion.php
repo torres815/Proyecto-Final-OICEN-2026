@@ -1,23 +1,17 @@
 <?php
+// db/conexion.php
 $host = "localhost";
-$db   = "oicen-db"; 
-$user = "root";               
-$pass = "";                   
-$charset = "utf8mb4";
+$user = "root";
+$pass = "";
+$db   = "oicen-db"; // Asegúrate de que este sea el nombre de tu base de datos
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$conexion = new mysqli($host, $user, $pass, $db);
 
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
-
-try {
-     $pdo = new PDO($dsn, $user, $pass, $options);
-
-} catch (\PDOException $e) {
-    
-     die("Error de conexión: " . $e->getMessage());
+// Verificar si hay error
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
 }
+
+// Establecer caracteres a utf8 para evitar errores de acentos
+$conexion->set_charset("utf8");
 ?>
