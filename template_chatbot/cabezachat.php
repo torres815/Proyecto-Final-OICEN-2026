@@ -12,6 +12,44 @@ $usuario = "Elias";
     <title>OICEN - chatbot</title>
 
     <style>
+
+        .chat-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 12px;
+    max-width: 80%;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Estilo para el usuario (Derecha) */
+.message.user {
+    align-self: flex-end;
+    background: #6a11cb; /* Morado acorde a tu UI */
+    color: white;
+    border-bottom-right-radius: 2px;
+}
+
+/* Estilo para el bot (Izquierda) */
+.message.bot {
+    align-self: flex-start;
+    background: #2d2d3a;
+    color: #e0e0e0;
+    border-bottom-left-radius: 2px;
+}
+
+.message.loading {
+    font-style: italic;
+    opacity: 0.6;
+}
+
         html {
             scroll-behavior: smooth;
         }
