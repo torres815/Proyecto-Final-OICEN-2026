@@ -9,4 +9,4 @@ CREATE TABLE openrouter_config (
 );
 
 INSERT INTO openrouter_config (api_key)
-VALUES ('apiii aca');
+VALUES ('');
