@@ -12,321 +12,689 @@ $usuario = "Elias";
     <title>OICEN - chatbot</title>
 
     <style>
-        * {
-            padding: 0%;
-            margin: 0%;
-            box-sizing: border-box;
-        }
 
-        :root {
-            --bg-dark: #0a0e14;
-            --nav-bg: rgba(18, 24, 33, 0.8);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --text-main: #ffffff;
-            --text-dim: #94a3b8;
-            --dark: #0b0f1a;
-            --accent: #58a6ff;
-        }
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+}
 
-        body {
-            background-color: var(--dark);
-            color: #fff;
-            font-family: 'Inter', system-ui, sans-serif;
-            margin: 0;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+:root{
+    --bg-dark:#0a0e14;
+    --nav-bg:rgba(18,24,33,0.8);
+    --border-color:rgba(255,255,255,0.08);
+    --text-main:#ffffff;
+    --text-dim:#94a3b8;
+    --dark:#0b0f1a;
+    --accent:#58a6ff;
+}
 
-        /* Capas de luz de fondo */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background:
-                radial-gradient(circle at 10% 30%, rgba(20, 111, 172, 0.27) 0%, transparent 20%),
-                radial-gradient(circle at 90% 60%, rgba(28, 158, 245, 0.27) 0%, transparent 21%),
-                radial-gradient(circle at 50% 100%, rgba(56, 18, 92, 0.24) 0%, transparent 18%);
-            pointer-events: none;
-        }
+body{
+    background-color:var(--dark);
+    color:#fff;
+    font-family:'Inter',system-ui,sans-serif;
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+}
 
-        /* Fondo de malla (Grid) */
-        .grid-bg {
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(88, 166, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(88, 166, 255, 0.05) 1px, transparent 1px);
-            background-size: 45px 45px;
-            z-index: -1;
-        }
 
-        /* Navbar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--dark);
-            padding: 10px 90px;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            z-index: 10;
-        }
+/* =========================================
+   FONDO
+========================================= */
 
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+body::before{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
 
-        .brand-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+    background:
+        radial-gradient(circle at 10% 30%, rgba(20,111,172,.27) 0%, transparent 20%),
+        radial-gradient(circle at 90% 60%, rgba(28,158,245,.27) 0%, transparent 21%),
+        radial-gradient(circle at 50% 100%, rgba(56,18,92,.24) 0%, transparent 18%);
+}
 
-        .logo-img {
-            width: 110%;
-            height: 70%;
-            object-fit: contain;
-            display: block;
-        }
+.grid-bg{
+    position:fixed;
+    inset:0;
 
-        .brand-text h1 {
-            font-size: 16px;
-            margin: 0;
-            color: #ffffff;
-            font-weight: 600;
-        }
+    background-image:
+        linear-gradient(rgba(88,166,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88,166,255,.05) 1px, transparent 1px);
 
-        .brand-text span {
-            font-size: 12px;
-            color: #94a3b8;
-        }
+    background-size:45px 45px;
+    z-index:-1;
+}
 
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
 
-        .nav-links-container {
-            display: flex;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.03);
-        }
+/* =========================================
+   NAVBAR
+========================================= */
 
-        .nav-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            border-right: 1px solid var(--border-color);
-            transition: background 0.3s;
-        }
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-        .nav-item:last-child {
-            border-right: none;
-        }
+    background:var(--dark);
 
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
+    padding:10px 90px;
 
-        .icon-bg {
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 10px;
-            font-size: 12px;
-        }
+    border-bottom:1px solid var(--border-color);
 
-        .green {
-            background-color: #4ade80;
-        }
+    backdrop-filter:blur(10px);
 
-        .orange {
-            background-color: #fb923c;
-        }
+    z-index:10;
+}
 
-        .purple {
-            background-color: #a78bfa;
-        }
+.nav-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
 
-        .toggle-track {
-            width: 50px;
-            height: 26px;
-            background: #1e293b;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            position: relative;
-            padding: 2px;
-        }
+.brand-icon{
+    width:80px;
+    height:80px;
+    border-radius:12px;
 
-        .toggle-thumb {
-            width: 22px;
-            height: 22px;
-            background: #334155;
-            border-radius: 50%;
-            position: absolute;
-            right: 3px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 12px;
-        }
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-        /* cuerpo chatt */
-        .workspace-container {
-            display: flex;
-            gap: 20px;
-            height: calc(100vh - 180px);
-            /* Ajuste según tu navbar */
-        }
+    overflow:hidden;
+}
 
-        /* Estilos de Paneles */
-        .chat-section,
-        .editor-section {
-            background: rgba(18, 24, 33, 0.6);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+.logo-img{
+    width:110%;
+    height:70%;
+    object-fit:contain;
+    display:block;
+}
 
-        .chat-section {
-            flex: 0.35;
-        }
+.brand-text h1{
+    font-size:16px;
+    margin:0;
+    color:#fff;
+    font-weight:600;
+}
 
-        .editor-section {
-            flex: 0.65;
-        }
+.brand-text span{
+    font-size:12px;
+    color:#94a3b8;
+}
 
-        .panel-header {
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+.nav-menu{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
 
-        /* Chat Body */
-        .chat-body {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+.nav-links-container{
+    display:flex;
 
-        .message {
-            padding: 10px 15px;
-            border-radius: 12px;
-            font-size: 14px;
-            max-width: 85%;
-            line-height: 1.5;
-        }
+    border:1px solid var(--border-color);
 
-        .message.bot {
-            background: rgba(88, 166, 255, 0.1);
-            border: 1px solid rgba(88, 166, 255, 0.2);
-            align-self: flex-start;
-        }
+    border-radius:12px;
 
-        .message.user {
-            background: var(--accent);
-            color: #000;
-            font-weight: 500;
-            align-self: flex-end;
-        }
+    overflow:hidden;
 
-        /* Editor de Código */
-        .code-container {
-            flex: 1;
-            background: #0d1117;
-            position: relative;
-        }
+    background:rgba(255,255,255,.03);
+}
 
-        #code-editor {
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            border: none;
-            color: #e6edf3;
-            font-family: 'Fira Code', monospace;
-            padding: 20px;
-            resize: none;
-            outline: none;
-            font-size: 15px;
-            line-height: 1.6;
-        }
+.nav-item{
+    display:flex;
+    align-items:center;
 
-        /* Terminal integrada */
-        .editor-section .terminal {
-            margin: 0;
-            border-radius: 0;
-            border: none;
-            border-top: 1px solid #333;
-            max-width: 100%;
-        }
+    padding:12px 20px;
 
-        /* Botón Ejecutar con Brillo */
-        .run-btn {
-            margin-left: auto;
-            background: #238636;
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            position: relative;
-            transition: 0.3s;
-        }
+    color:var(--text-main);
 
-        .run-btn:hover {
-            background: #2ea043;
-            box-shadow: 0 0 15px rgba(46, 160, 67, 0.4);
-        }
+    text-decoration:none;
 
-        .chat-input-area {
-            padding: 15px;
-            display: flex;
-            gap: 10px;
-            border-top: 1px solid var(--border-color);
-        }
+    font-size:14px;
 
-        #user-input {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            border-radius: 8px;
-            color: white;
-            outline: none;
-        }
-    </style>
+    font-weight:600;
+
+    border-right:1px solid var(--border-color);
+
+    transition:.3s;
+}
+
+.nav-item:last-child{
+    border-right:none;
+}
+
+.nav-item:hover{
+    background:rgba(255,255,255,.05);
+}
+
+
+/* =========================================
+   ICONOS
+========================================= */
+
+.icon-bg{
+    width:24px;
+    height:24px;
+
+    border-radius:6px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin-right:10px;
+
+    font-size:12px;
+}
+
+.green{
+    background:#4ade80;
+}
+
+.orange{
+    background:#fb923c;
+}
+
+.purple{
+    background:#a78bfa;
+}
+
+
+/* =========================================
+   TOGGLE
+========================================= */
+
+.toggle-track{
+    width:50px;
+    height:26px;
+
+    background:#1e293b;
+
+    border:1px solid var(--border-color);
+
+    border-radius:20px;
+
+    position:relative;
+
+    padding:2px;
+}
+
+.toggle-thumb{
+    width:22px;
+    height:22px;
+
+    background:#334155;
+
+    border-radius:50%;
+
+    position:absolute;
+    right:3px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:12px;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main-content{
+    width:100%;
+    height:calc(100vh - 90px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:25px 40px;
+}
+
+
+/* =========================================
+   WORKSPACE
+========================================= */
+
+.workspace-container{
+    width:100%;
+    max-width:1450px;
+    height:92%;
+
+    display:flex;
+    gap:25px;
+
+    justify-content:center;
+    align-items:stretch;
+}
+
+
+/* =========================================
+   PANELS
+========================================= */
+
+.chat-section,
+.compiler-section{
+    background:rgba(18,24,33,.72);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.03);
+}
+
+
+/* =========================================
+   CHAT
+========================================= */
+
+.chat-section{
+    width:360px;
+    min-width:360px;
+
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* =========================================
+   COMPILADOR
+========================================= */
+
+.compiler-section{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+}
+
+
+/* =========================================
+   PANEL HEADER
+========================================= */
+
+.panel-header{
+    height:72px;
+
+    padding:0 22px;
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    background:rgba(255,255,255,.03);
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.panel-header h3{
+    font-size:20px;
+    font-weight:700;
+}
+
+
+/* =========================================
+   CHAT BODY
+========================================= */
+
+.chat-body{
+    flex:1;
+
+    padding:22px;
+
+    overflow-y:auto;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:16px;
+}
+
+
+/* =========================================
+   MENSAJES
+========================================= */
+
+.message{
+    max-width:85%;
+
+    padding:14px 16px;
+
+    border-radius:18px;
+
+    font-size:14px;
+
+    line-height:1.7;
+
+    word-wrap:break-word;
+
+    animation:fadeIn .25s ease;
+}
+
+.message.bot{
+    align-self:flex-start;
+
+    background:rgba(88,166,255,.10);
+
+    border:1px solid rgba(88,166,255,.18);
+
+    color:#e2e8f0;
+
+    border-bottom-left-radius:6px;
+}
+
+.message.user{
+    align-self:flex-end;
+
+    background:linear-gradient(
+        135deg,
+        #58a6ff,
+        #7c3aed
+    );
+
+    color:white;
+
+    border-bottom-right-radius:6px;
+
+    box-shadow:
+        0 5px 20px rgba(88,166,255,.25);
+}
+
+
+/* =========================================
+   CHAT INPUT
+========================================= */
+
+.chat-input-area{
+    padding:18px;
+
+    display:flex;
+
+    gap:12px;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+    background:rgba(255,255,255,.02);
+}
+
+.chat-input-area textarea{
+    flex:1;
+
+    height:55px;
+
+    background:#0f172a;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:14px;
+
+    padding:15px;
+
+    color:white;
+
+    resize:none;
+
+    outline:none;
+
+    font-size:14px;
+
+    font-family:inherit;
+}
+
+.chat-input-area textarea:focus{
+    border-color:#58a6ff;
+}
+
+.send-btn{
+    min-width:95px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        135deg,
+        #58a6ff,
+        #7c3aed
+    );
+
+    color:white;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.send-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(88,166,255,.25);
+}
+
+
+/* =========================================
+   COMPILER CONTAINER
+========================================= */
+
+.compiler-container{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+
+    padding:20px;
+
+    gap:18px;
+}
+
+
+/* =========================================
+   CODE EDITOR
+========================================= */
+
+#code-editor{
+    flex:1;
+
+    width:100%;
+
+    min-height:480px;
+
+    background:#020617;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:20px;
+
+    padding:28px;
+
+    color:#e2e8f0;
+
+    resize:none;
+
+    outline:none;
+
+    font-family:'Fira Code', monospace;
+
+    font-size:15px;
+
+    line-height:1.8;
+
+    box-shadow:
+        inset 0 0 25px rgba(0,0,0,.45);
+}
+
+
+/* =========================================
+   RUN BUTTON
+========================================= */
+
+#run-code-btn{
+    height:58px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:linear-gradient(
+        135deg,
+        #7c3aed,
+        #9333ea
+    );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:
+        0 8px 30px rgba(124,58,237,.30);
+}
+
+#run-code-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 35px rgba(124,58,237,.45);
+}
+
+
+/* =========================================
+   RESULTADO
+========================================= */
+
+#judge-result{
+    background:#020617;
+    border-radius:15px;
+    padding:20px;
+
+    height:180px;
+
+    overflow-y:auto;
+
+    border:1px solid rgba(255,255,255,0.05);
+
+    scrollbar-width:thin;
+}
+
+#judge-result::-webkit-scrollbar{
+    width:6px;
+}
+
+#judge-result::-webkit-scrollbar-thumb{
+    background:#334155;
+    border-radius:10px;
+}
+
+/* =========================================
+   ESTADOS
+========================================= */
+
+.judge-status{
+    font-size:15px;
+    line-height:1.8;
+}
+
+.waiting{
+    color:#94a3b8;
+}
+
+.running{
+    color:#38bdf8;
+}
+
+.success{
+    color:#22c55e;
+}
+
+.error{
+    color:#ef4444;
+}
+
+
+/* =========================================
+   SCROLL
+========================================= */
+
+.chat-body::-webkit-scrollbar,
+#code-editor::-webkit-scrollbar{
+    width:8px;
+}
+
+.chat-body::-webkit-scrollbar-thumb,
+#code-editor::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.10);
+    border-radius:20px;
+}
+
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:1200px){
+
+    .workspace-container{
+        flex-direction:column;
+        height:auto;
+    }
+
+    .chat-section{
+        width:100%;
+        min-width:auto;
+    }
+
+    .compiler-section{
+        width:100%;
+    }
+
+}
+
+</style>
 </head>
 
 <body>

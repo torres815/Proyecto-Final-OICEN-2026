@@ -2,8 +2,8 @@
 // db/conexion.php
 $host = "localhost";
 $user = "root";
-$pass = "";
-$db   = "oicen-db"; // Asegúrate de que este sea el nombre de tu base de datos
+$pass = "root";
+$db   = "oicen_db"; // Asegúrate de que este sea el nombre de tu base de datos
 
 $conexion = new mysqli($host, $user, $pass, $db);
 

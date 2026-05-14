@@ -1,9 +1,9 @@
 <?php
 // Configuración de conexión
 $host = "localhost";
-$db   = "oicen-db"; 
+$db   = "oicen_db"; 
 $user = "root";               
-$pass = "";                   
+$pass = "root";                   
 $charset = "utf8mb4";
 
 try {

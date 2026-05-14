@@ -1,62 +1,147 @@
 <script>
-    // CONFIGURACIÓN DE APIS (Ejemplo con Judge0)
-    async function runCode() {
-        const outputElement = document.getElementById('output-text');
-        const code = document.getElementById('code-editor').value;
 
-        outputElement.innerText = "Compilando...";
-        outputElement.className = "blink";
+document
+.getElementById("run-code-btn")
+.addEventListener("click", async () => {
 
-        const options = {
-            method: 'POST',
-            url: 'https://judge0-ce.p.rapidapi.com/submissions',
-            params: {
-                base64_encoded: 'false',
-                fields: '*'
-            },
-            headers: {
-                'content-type': 'application/json',
-                'X-RapidAPI-Key': 'TU_API_KEY_AQUI',
-                'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
-            },
-            data: {
-                language_id: 54, // C++ (GCC 9.2.0)
-                source_code: code
+    const code =
+        document.getElementById("code-editor").value;
+
+    const resultBox =
+        document.getElementById("judge-result");
+
+
+    /* =========================================
+       VALIDAR VACÍO
+    ========================================= */
+
+    if(code.trim() === ""){
+
+        resultBox.innerHTML = `
+            <div class="judge-status error">
+
+                ⚠️ Escribí un código primero.
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* =========================================
+       ESTADO CARGANDO
+    ========================================= */
+
+    resultBox.innerHTML = `
+        <div class="judge-status running">
+
+            ⏳ Compilando código...
+
+        </div>
+    `;
+
+
+    try {
+
+        const response = await fetch(
+            "run_code.php",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    code: code
+                })
+
             }
-        };
+        );
 
-        try {
-            // Aquí harías el fetch a la API
-            // Simulación de respuesta exitosa:
-            setTimeout(() => {
-                outputElement.className = "";
-                outputElement.innerHTML = `<br><span style="color: #4ade80;">[Hecho]</span> Ejecución finalizada con éxito.<br>Hola desde OICEN!`;
-            }, 1500);
-        } catch (error) {
-            outputElement.innerText = "Error de conexión.";
+
+        /* =========================================
+           VALIDAR RESPUESTA
+        ========================================= */
+
+        if(!response.ok){
+
+            throw new Error("Error HTTP");
         }
+
+
+        const data = await response.json();
+
+
+        /* =========================================
+           SI COMPILA
+        ========================================= */
+
+        if (data.success) {
+
+            resultBox.innerHTML = `
+                <div class="judge-status success">
+
+                    ✅ Código correcto.<br><br>
+
+                    Puedes continuar al siguiente ejercicio 🚀
+
+                </div>
+            `;
+
+        }
+
+
+        /* =========================================
+           SI HAY ERROR
+        ========================================= */
+
+        else {
+
+            resultBox.innerHTML = `
+                <div class="judge-status error">
+
+                    ❌ Error detectado<br><br>
+
+                    ${data.message}
+
+                </div>
+            `;
+        }
+
     }
 
-    function sendMessage() {
-        const input = document.getElementById('user-input');
-        const container = document.getElementById('chat-messages');
 
-        if (input.value.trim() === "") return;
+    /* =========================================
+       ERROR GENERAL
+    ========================================= */
 
-        // Agregar mensaje usuario
-        container.innerHTML += `<div class="message user">${input.value}</div>`;
+    catch (error) {
 
-        const userPrompt = input.value;
-        input.value = "";
+        resultBox.innerHTML = `
+            <div class="judge-status error">
 
-        // Simulación respuesta IA
-        setTimeout(() => {
-            container.innerHTML += `<div class="message bot">Analizando tu duda sobre "${userPrompt}"... Recuerda que en C++ la gestión de memoria es clave.</div>`;
-            container.scrollTop = container.scrollHeight;
-        }, 1000);
+                ❌ Error del servidor.<br><br>
+
+                Verifica:
+                <br><br>
+
+                • run_code.php<br>
+                • conexión a internet<br>
+                • Judge0 API<br>
+                • errores PHP
+
+            </div>
+        `;
+
+        console.error(error);
     }
+
+});
+
 </script>
 
 </body>
-
 </html>

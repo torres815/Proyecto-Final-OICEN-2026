@@ -1,0 +1,12 @@
+CREATE TABLE openrouter_config (
+
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    api_key TEXT NOT NULL,
+
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+);
+
+INSERT INTO openrouter_config (api_key)
+VALUES ('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');
