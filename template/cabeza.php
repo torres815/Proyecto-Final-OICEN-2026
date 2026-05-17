@@ -19,6 +19,7 @@ if (!isset($_SESSION['usuario_nombre'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OICEN - Campus Virtual</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         * {
@@ -441,6 +442,213 @@ if (!isset($_SESSION['usuario_nombre'])) {
         .nav-card.locked::before {
             display: none;
         }
+
+        /* =========================
+   FOOTER FUTURISTA
+========================= */
+
+.footer {
+    position: relative;
+    margin-top: auto;
+    width: 100%;
+    background: rgba(8, 12, 20, 0.75);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(88, 166, 255, 0.15);
+    overflow: hidden;
+}
+
+.footer-glow {
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 250px;
+    background: radial-gradient(circle,
+            rgba(0, 183, 255, 0.18) 0%,
+            transparent 70%);
+    pointer-events: none;
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 35px 90px;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-brand h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+.footer-brand p {
+    max-width: 350px;
+    color: #94a3b8;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 14px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.footer-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background: #00d4ff;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+}
+
+.footer-links a:hover::after {
+    width: 100%;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.social-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(88,166,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #58a6ff;
+    cursor: pointer;
+    transition: 0.35s;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-btn::before {
+    content: '';
+    position: absolute;
+    width: 180%;
+    height: 180%;
+    background: conic-gradient(
+        transparent,
+        rgba(0,212,255,0.9),
+        transparent
+    );
+
+    animation: rotarBrillo 4s linear infinite;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.social-btn:hover::before {
+    opacity: 1;
+}
+
+.social-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0,212,255,0.4);
+    color: #fff;
+}
+
+.social-btn i {
+    position: relative;
+    z-index: 2;
+    font-size: 18px;
+}
+
+.footer-bottom {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 18px 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.footer-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #4ade80;
+    letter-spacing: 1px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 12px #4ade80;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.4);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 900px){
+
+    .footer-content{
+        flex-direction: column;
+        text-align: center;
+        padding: 35px 25px;
+    }
+
+    .footer-bottom{
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+    }
+
+    .footer-links{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+}
+
     </style>
 </head>
 

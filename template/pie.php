@@ -1,3 +1,46 @@
+<footer class="footer">
+    <div class="footer-glow"></div>
+
+    <div class="footer-content">
+
+        <div class="footer-brand">
+            <h2>OICEN SYSTEM</h2>
+            <p>Plataforma inteligente de gestión educativa y compilación interactiva.</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="#">Inicio</a>
+            <a href="#">Compilador</a>
+            <a href="#">Chat IA</a>
+            <a href="#">Soporte</a>
+        </div>
+
+        <div class="footer-social">
+            <div class="social-btn">
+                <i class="fab fa-github"></i>
+            </div>
+
+            <div class="social-btn">
+                <i class="fab fa-discord"></i>
+            </div>
+
+            <div class="social-btn">
+                <i class="fab fa-instagram"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <span>© 2026 OICEN TECHNOLOGY</span>
+
+        <div class="footer-status">
+            <span class="status-dot"></span>
+            <span>SYSTEM ONLINE</span>
+        </div>
+    </div>
+</footer>
+
 <script>
     const textToType = [
         "ERROR: Corazón no encontrado (404 Not Found)...",

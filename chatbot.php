@@ -176,7 +176,7 @@ function preguntarIA($prompt, $conn)
        ===================================================== */
 
     if (curl_errno($ch)) {
-
+        
         return "Error CURL: " . curl_error($ch);
     }
 
@@ -192,6 +192,7 @@ function preguntarIA($prompt, $conn)
         return "Error API:<br><pre>" .
             htmlspecialchars($response) .
             "</pre>";
+        
     }
 
 
